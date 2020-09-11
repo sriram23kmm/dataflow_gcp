@@ -1,4 +1,4 @@
-package GcsTpSpanner;
+package com.gcp.dataflow.GcsToSpanner;
 
 /**
  * Hello world!
