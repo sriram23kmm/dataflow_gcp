@@ -1,26 +1,72 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (C) 2017 Google Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  ~ use this file except in compliance with the License. You may obtain a copy of
+  ~ the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing permissions and limitations under
+  ~ the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.gcp.dataflow.GcsToSpanner</groupId>
   <artifactId>GcsToSpanner</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <google-api-client.version>1.30.9</google-api-client.version>
+    <google-http-client.version>1.34.0</google-http-client.version>
+    <google.cloud.core>1.92.2</google.cloud.core>
+    <google-storage-api.version>v1-rev20181013-1.27.0</google-storage-api.version>
+    <pubsub.version>v1-rev20200312-1.30.9</pubsub.version>
+    <spanner.version>1.49.1</spanner.version>
+    <bigquery.version>v2-rev20190917-1.30.3</bigquery.version>
+    <grpc.version>1.13.1</grpc.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <spark.version>2.4.6</spark.version>
+    <hadoop.version>2.8.5</hadoop.version>
+    <jackson.version>2.10.2</jackson.version>
+    <joda.version>2.10.5</joda.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <maven-exec-plugin.version>1.6.0</maven-exec-plugin.version>
+    <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+    <maven-shade-plugin.version>3.1.0</maven-shade-plugin.version>
+    <mockito.version>3.0.0</mockito.version>
+    <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>5.6.0</junit.version>
-    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-    <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>8.29</checkstyle.version>
-    <checkstyle-rules.version>4.0.1</checkstyle-rules.version>
-    <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-    <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
-    <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
-    <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
-    <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
-    <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
-    <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
-    <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
-    <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
+    <apache-http-client-v2>1.31.0</apache-http-client-v2>
+    <avro.version>1.8.2</avro.version>
+    <checkstyle.version>8.7</checkstyle.version>
+    <beam.version>2.20.0</beam.version>
+    <beam-vendor-guava.version>0.1</beam-vendor-guava.version>
+    <hamcrest.version>1.3</hamcrest.version>
+    <java.version>1.8</java.version>
+    <junit.version>4.12</junit.version>
+    <junit-dep.version>4.10</junit-dep.version>
+    <surefire.version>2.21.0</surefire.version>
+    <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+    <maven-dependency-plugin.version>3.0.1</maven-dependency-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+    <maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
+    <generated-grpc-beta.version>0.19.0</generated-grpc-beta.version>
+    <guava.version>26.0-jre</guava.version>
+    <json.version>20160810</json.version>
+    <junit.jupiter.version>5.5.2</junit.jupiter.version>
+    <gson.version>2.7</gson.version>
+    <commons-csv.version>1.5</commons-csv.version>
+    <commons-text.version>1.6</commons-text.version>
+    <mvn-target-dir>${basedir}/target</mvn-target-dir>
   </properties>
   <dependencies>
     <dependency>
