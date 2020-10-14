@@ -19,8 +19,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.gcp.dataflow.GcsToSpanner</groupId>
-  <artifactId>GcsToSpanner</artifactId>
+  <groupId>com.gcp.dataflow.pbToBq</groupId>
+  <artifactId>pbToBqIngestion</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
     <google-api-client.version>1.30.9</google-api-client.version>
