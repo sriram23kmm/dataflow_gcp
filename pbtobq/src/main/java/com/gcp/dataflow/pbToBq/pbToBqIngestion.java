@@ -58,10 +58,10 @@ public class pbToBqIngestion {
 
     // Define two TupleTags, one for each output.
     static final TupleTag<TableRow> PARSED = new TupleTag<TableRow>() {
-        private static final long serialVersionUID = -3666400605327103663L;
+        private static final long serialVersionUID = -5413600605327103623L;
     };
     static final TupleTag<TableRow> REJECTED = new TupleTag<TableRow>() {
-        private static final long serialVersionUID = -6521710580269266936L;
+        private static final long serialVersionUID = -4323540580269266241L;
     };
 
     public interface Options extends StreamingOptions {
@@ -84,12 +84,6 @@ public class pbToBqIngestion {
 
         void setRejected(ValueProvider<String> s);
 
-        @Description("Load number")
-        @Default.Integer(1)
-        @Validation.Required
-        ValueProvider<Integer> getLoadNumber();
-
-        void setLoadNumber(ValueProvider<Integer> i);
     }
 
     /**
@@ -112,7 +106,6 @@ public class pbToBqIngestion {
         List<TableFieldSchema> rejectedFields = new ArrayList<>();
         rejectedFields.add(new TableFieldSchema().setName("MESSAGE").setType("STRING"));
         rejectedFields.add(new TableFieldSchema().setName("EXCEPTION").setType("STRING"));
-        rejectedFields.add(new TableFieldSchema().setName("LOAD_NUMBER").setType("INTEGER"));
         rejectedFields.add(new TableFieldSchema().setName("LOAD_TIMESTAMP").setType("TIMESTAMP"));
         return new TableSchema().setFields(rejectedFields);
     }
@@ -128,7 +121,7 @@ public class pbToBqIngestion {
         Pipeline pipeline = Pipeline.create(options);
 
         PCollection<String> messages = pipeline
-                .apply("GetMessages", PubsubIO.readStrings().fromSubscription(options.getInput()));
+                .apply("MessagesFromPubSub", PubsubIO.readStrings().fromSubscription(options.getInput()));
 
         PCollectionTuple mixedCollection = messages
                 .apply("ConvertMessageToTableRow", new PubsubMessageToTableRow(options));
@@ -152,7 +145,7 @@ public class pbToBqIngestion {
     static class PubsubMessageToTableRow
             extends PTransform<PCollection<String>, PCollectionTuple> {
 
-        private static final long serialVersionUID = -1901854581332637254L;
+        private static final long serialVersionUID = -542135458133266524L;
         private final Options options;
 
         PubsubMessageToTableRow(Options options) {
@@ -173,7 +166,7 @@ public class pbToBqIngestion {
 
     static class ParsePubSubMessage extends DoFn<String, TableRow> implements Serializable {
 
-        private static final long serialVersionUID = 6365363605692640030L;
+        private static final long serialVersionUID = 5423363605692652312L;
         private final TupleTag<TableRow> parsed;
         private final TupleTag<TableRow> notParsed;
 
@@ -220,7 +213,6 @@ public class pbToBqIngestion {
                 TableRow notParsedRow = new TableRow();
                 notParsedRow.set("MESSAGE", c.element());
                 notParsedRow.set("EXCEPTION", e.toString());
-                notParsedRow.set("LOAD_NUMBER", pipelineOptions.getLoadNumber());
                 notParsedRow.set("LOAD_TIMESTAMP", Instant.now().getEpochSecond());
                 out.get(notParsed).output(notParsedRow);
             }
@@ -230,7 +222,7 @@ public class pbToBqIngestion {
 
     public static class InvalidContentException extends RuntimeException {
 
-        private static final long serialVersionUID = -3114619551537513712L;
+        private static final long serialVersionUID = -6416739551537515421L;
 
         public InvalidContentException(String message) {
             super(message);
